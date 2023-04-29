@@ -44,7 +44,7 @@ logreg.fit(train[['x1', 'x2', 'x3']], train['y'].to_numpy())
 df = st.file_uploader('Загрузите свои данные:', 'csv')
 
 if st.button("Predict"):
-     prediction = logreg.predict(df[['x1', 'x2', 'x3']], train['y'].to_numpy())
+     prediction = logreg.predict(df[['x1', 'x2', 'x3']], df['y'].to_numpy())
      st.success(f'Your prediction is: {prediction}')
 
 
