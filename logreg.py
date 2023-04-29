@@ -41,9 +41,12 @@ logreg = LogReg(0.01)
 
 logreg.fit(train[['x1', 'x2', 'x3']], train['y'].to_numpy())
 
-df = st.file_uploader('Загрузите свои данные:', 'csv')
-
-if st.button("Predict"):
+#df = st.file_uploader('Загрузите свои данные:', 'csv')
+input_file = st.file_uploader("Upload a CSV File",type=['csv'])
+if (input_file is not None) and input_file.name.endswith(".csv"):
+    df = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
+    if st.button("Predict"): 
+     df[['x1', 'x2', 'x3']] = ss.fit_transform(df[['x1', 'x2', 'x3']])
      prediction = logreg.predict(df[['x1', 'x2', 'x3']], df['y'].to_numpy())
      st.success(f'Your prediction is: {prediction}')
 
