@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 import streamlit as st
 
-train = pd.read_csv('../ds-phase-1/05-math/aux/LogRegtrain.csv').drop('Unnamed: 0', axis=1)
+train = pd.read_csv('aux/LogRegtrain.csv').drop('Unnamed: 0', axis=1)
 
 ss = StandardScaler()
 train[['x1', 'x2', 'x3']] = ss.fit_transform(train[['x1', 'x2', 'x3']])
