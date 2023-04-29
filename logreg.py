@@ -47,7 +47,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     df = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
     if st.button("Predict"): 
      df[['x1', 'x2', 'x3']] = ss.fit_transform(df[['x1', 'x2', 'x3']])
-     prediction = logreg.predict(df[['x1', 'x2', 'x3']], df['y'].to_numpy())
+     prediction = logreg.predict(df[['x1', 'x2', 'x3']])
      st.success(f'Your prediction is: {prediction}')
 
 
