@@ -41,6 +41,9 @@ logreg = LogReg(0.01)
 
 logreg.fit(train[['x1', 'x2', 'x3']], train['y'].to_numpy())
 
-st.file_uploader('Загрузите свои данные:', 'csv')
+df = st.file_uploader('Загрузите свои данные:', 'csv')
+
+st.write(df)
+#logreg.predict(train[['x1', 'x2', 'x3']], train['y'].to_numpy())
 
 
