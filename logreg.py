@@ -38,7 +38,10 @@ class LogReg:
             sigmoid = 1/(1 + np.exp(-(self.bias + X@self.w)))
             return np.array(sigmoid), np.array(list(map(int,round(sigmoid))))
 
-
+st.write('''
+        ### Логистическая регрессия
+        #### Предскажем ваши данные без регистрации и смс
+        ''')
 
 
 #train = st.file_uploader('Загрузите свои данные:', 'csv')
