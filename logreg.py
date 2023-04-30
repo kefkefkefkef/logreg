@@ -50,7 +50,8 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     if st.button("Поехали"):
         ss = StandardScaler()
         train[xs] = ss.fit_transform(train[xs])
-        logreg = LogReg(0.01)
+        learning_rate = st.slider('Точность обучения', 0.0001, 0.1, 0.01)
+        logreg = LogReg(learning_rate)
         logreg.fit(train[xs], train[y].to_numpy())     
         #st.write('You selected:', option)
         
