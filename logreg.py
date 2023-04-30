@@ -20,7 +20,7 @@ class LogReg:
         self.w = np.random.normal(size=X.shape[1])
         self.bias = np.random.normal(1)
         
-        N=st.slider('Количество эпох', 1000, 10000, 3000)
+        N=st.number_input('Количество эпох', min_value=1000, max_value=3001, value=2000, step=500)
         for i in range(N):
             yhat = 1/(1 + np.exp(-(self.bias + X@self.w)))
             error = (y - yhat)
@@ -78,7 +78,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         test_new[xs] = ss.fit_transform(test_new[xs])
         test['y^'] = logreg.predict(test_new[xs])
         st.write('''
-        #### Итоговый результат {precision}
+        #### Итоговый результат
         ''')
         st.dataframe(test.style.apply(compare, axis=1))
         precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
