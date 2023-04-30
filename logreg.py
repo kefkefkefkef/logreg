@@ -61,14 +61,10 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
      compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction})
 
      def compare(s):
-        return ['background-color: green']*len(s) if s['y'] == s['y^'] else ['background-color: red']*len(s)
-
-     def color_survived(val):
-        color = 'green' if val else 'red'
-        return f'background-color: {color}'
+        return ['background-color: celadon']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
      st.dataframe(compare_df.style.apply(compare, axis=1))
-     st.dataframe(compare_df.style.applymap(color_survived, subset=['y^']))
+     
      #st.write(compare_df)
      #st.success(f'Your prediction is: {prediction}')
 
