@@ -44,8 +44,8 @@ input_file = st.file_uploader("Загрузите свои данные для �
 if (input_file is not None) and input_file.name.endswith(".csv"):
     df = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
    
-    y = st.selectbox('Выберите таргет:',(df))
-    xs = st.multiselect('Выберите показатели для вычисления весов:', (df))
+    y = st.selectbox('Выберите таргет:',(df.columns))
+    xs = st.multiselect('Выберите показатели для вычисления весов:', (df.columns))
     st.write(xs)
     # if st.button("Поехали"):
     #  df[xs] = ss.fit_transform(df[xs])
