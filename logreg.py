@@ -59,7 +59,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     #st.write('You selected:', option)
     
     st.write('Веса модели:', logreg.w, 'Свободный член:', f'{logreg.bias}')   
-    train[['y_sign','y^']] = logreg.predict(train[xs])
+    train['y_sigm'],train['y^'] = logreg.predict(train[xs])
     
     
     
