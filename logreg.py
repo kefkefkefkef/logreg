@@ -3,7 +3,8 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 import streamlit as st
-
+import seaborn as sns
+from matplotlib import pyplot as plt
 # train0 = pd.read_csv('aux/LogRegtrain.csv').drop('Unnamed: 0', axis=1)
 
 # ss = StandardScaler()
@@ -35,7 +36,7 @@ class LogReg:
             
             #X['y_pred'] = round(1/(1 + np.exp(-(self.bias + X@self.w))))
             sigmoid = 1/(1 + np.exp(-(self.bias + X@self.w)))
-            return np.array(list(map(int,round(sigmoid))))
+            return np.array(sigmoid), np.array(list(map(int,round(sigmoid))))
 
 
 
@@ -58,7 +59,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     #st.write('You selected:', option)
     
     st.write('Веса модели:', logreg.w, 'Свободный член:', f'{logreg.bias}')   
-    train['y^'] = logreg.predict(train[xs])
+    train[['y_sign','y^']] = logreg.predict(train[xs])
     
     
     
@@ -85,7 +86,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
         #st.write(f'Точность предсказания: {precision}%')
 
-        
+        sns.lineplot(data = new.sort_values('y_sigmoid').reset_index()[['y_sigmoid', 'y_pred']])
 
 
 
