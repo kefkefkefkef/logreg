@@ -53,8 +53,11 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
      logreg.fit(df[xs], df[y].to_numpy())     
      #st.write('You selected:', option)
      
-     st.write('Веса модели:', logreg.w, logreg.bias)   
+     st.write('Веса модели:', logreg.w, 'Свободный член:', logreg.bias)   
      prediction = logreg.predict(df[['x1', 'x2', 'x3']])
-     st.success(f'Your prediction is: {prediction}')
+     st.write('Сверим предсказание модели с входными данными:')
+     compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction})
+     st.write(compare_df)
+     #st.success(f'Your prediction is: {prediction}')
 
 
