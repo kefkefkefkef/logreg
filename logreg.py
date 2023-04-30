@@ -70,8 +70,9 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
 
         input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
         if (input_file2 is not None) and input_file2.name.endswith(".csv"):
+            test = pd.read_csv(input_file2).drop('Unnamed: 0', axis=1)
             if st.button("Поехали"):
-                test = pd.read_csv(input_file2).drop('Unnamed: 0', axis=1)
+                
                 test[xs] = ss.fit_transform(test[xs])
                 test['y^'] = logreg.predict(test[xs])
 
