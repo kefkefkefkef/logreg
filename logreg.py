@@ -20,7 +20,7 @@ class LogReg:
         self.w = np.random.normal(size=X.shape[1])
         self.bias = np.random.normal(1)
         
-        N=10000
+        N=st.slider('Количество эпох', 1000, 10000, 3000)
         for i in range(N):
             yhat = 1/(1 + np.exp(-(self.bias + X@self.w)))
             error = (y - yhat)
