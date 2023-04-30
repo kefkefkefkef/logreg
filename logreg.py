@@ -68,7 +68,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     def compare(s):
         return ['background-color: #90EE90']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
-    st.dataframe(train.style.apply(compare, axis=1))
+    #st.dataframe(train.style.apply(compare, axis=1))
    
 
     #input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
