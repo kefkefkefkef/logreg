@@ -71,10 +71,12 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         #input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
         if (input_file2 is not None) and input_file2.name.endswith(".csv"):
             test = pd.read_csv(input_file2).drop('Unnamed: 0', axis=1)
-                        
-            test[xs] = ss.fit_transform(test[xs])
+            test_new = test        
+            test_new[xs] = ss.fit_transform(test[xs])
             test['y^'] = logreg.predict(test[xs])
-
+            st.write('''
+            #### Итоговый результат
+            ''')
             st.dataframe(test.style.apply(compare, axis=1))
             precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
             st.write(f'Точность предсказания: {precision}%')
