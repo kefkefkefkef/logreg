@@ -86,7 +86,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
         #st.write(f'Точность предсказания: {precision}%')
         fig, ax = plt.subplots()
-        sns.scatterplot(data = test.sort_values('y_sigm').reset_index()['y'])
+        sns.scatterplot(data = test.sort_values('y_sigm').reset_index()[['y','y^']])
         sns.lineplot(data = test.sort_values('y_sigm').reset_index()['y_sigm'])
         plt.axhline(0.5, color='r', label='0.5')
         st.pyplot(fig)
