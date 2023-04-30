@@ -51,7 +51,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     ss = StandardScaler()
     train_new = train
     train_new[xs] = ss.fit_transform(train_new[xs])
-    learning_rate = st.number_input('Точность обучения', 0.0001, 0.01, 0.01)
+    learning_rate = st.number_input('Точность обучения', min_value=0.001, max_value=0.01, value=0.005, step=0.001)
     logreg = LogReg(learning_rate)
     logreg.fit(train_new[xs], train_new[y].to_numpy())     
     #st.write('You selected:', option)
