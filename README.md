@@ -1,2 +1,2 @@
 # logreg
-log reg for phase 1
+click here >>> https://kefkefkefkef-logreg-logreg-65pszs.streamlit.app/

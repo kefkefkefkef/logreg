@@ -46,15 +46,15 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
    
     y = st.selectbox('Выберите таргет:',(df.columns))
     xs = st.multiselect('Выберите показатели для вычисления весов:', (df.columns))
-    st.write(xs)
-    # if st.button("Поехали"):
-    #  df[xs] = ss.fit_transform(df[xs])
-    #  logreg = LogReg(0.01)
-    #  logreg.fit(df[xs], train[y].to_numpy())     
-    #  #st.write('You selected:', option)
+   
+    if st.button("Поехали"):
+     df[xs] = ss.fit_transform(df[xs])
+     logreg = LogReg(0.01)
+     logreg.fit(df[xs], df[y].to_numpy())     
+     #st.write('You selected:', option)
      
-    #  st.write('Веса модели:', )   
-    #  prediction = logreg.predict(df[['x1', 'x2', 'x3']])
-    #  st.success(f'Your prediction is: {prediction}')
+     st.write('Веса модели:', )   
+     prediction = logreg.predict(df[['x1', 'x2', 'x3']])
+     st.success(f'Your prediction is: {prediction}')
 
 
