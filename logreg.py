@@ -42,7 +42,8 @@ class LogReg:
 
 
 #train = st.file_uploader('Загрузите свои данные:', 'csv')
-input_file, input_file2 = st.file_uploader("Загрузите свои данные для обучения модели",type=['csv'], accept_multiple_files=True)
+input_file = st.file_uploader("Загрузите данные для обучения модели",type=['csv'])
+input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
 if (input_file is not None) and input_file.name.endswith(".csv"):
     train = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
    
