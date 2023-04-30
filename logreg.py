@@ -4,10 +4,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 import streamlit as st
 
-train = pd.read_csv('aux/LogRegtrain.csv').drop('Unnamed: 0', axis=1)
+# train0 = pd.read_csv('aux/LogRegtrain.csv').drop('Unnamed: 0', axis=1)
 
-ss = StandardScaler()
-train[['x1', 'x2', 'x3']] = ss.fit_transform(train[['x1', 'x2', 'x3']])
+# ss = StandardScaler()
+# train0[['x1', 'x2', 'x3']] = ss.fit_transform(train0[['x1', 'x2', 'x3']])
 
 class LogReg:
     def __init__(self, learning_rate):
@@ -39,34 +39,48 @@ class LogReg:
 
 
 
-#df = st.file_uploader('Загрузите свои данные:', 'csv')
+#train = st.file_uploader('Загрузите свои данные:', 'csv')
 input_file = st.file_uploader("Загрузите свои данные для обучения модели",type=['csv'])
 if (input_file is not None) and input_file.name.endswith(".csv"):
-    df = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
+    train = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
    
-    y = st.selectbox('Выберите таргет:',(df.columns))
-    xs = st.multiselect('Выберите показатели для вычисления весов:', (df.columns))
+    y = st.selectbox('Выберите таргет:',(train.columns))
+    xs = st.multiselect('Выберите показатели для вычисления весов:', (train.columns))
    
     if st.button("Поехали"):
-     df[xs] = ss.fit_transform(df[xs])
+     ss = StandardScaler()
+     train[xs] = ss.fit_transform(train[xs])
      logreg = LogReg(0.01)
-     logreg.fit(df[xs], df[y].to_numpy())     
+     logreg.fit(train[xs], train[y].to_numpy())     
      #st.write('You selected:', option)
      
-     st.write('Веса модели:', logreg.w, 'Свободный член:', logreg.bias)   
-     prediction = logreg.predict(df[xs])
+     st.write('Веса модели:', logreg.w, 'Свободный член:', f'{logreg.bias}')   
+     prediction = logreg.predict(train[xs])
     
      
      st.write('Сверим предсказание модели с входными данными:')
-     compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction})
+     compare_train = pd.DataFrame(data={'y': train[y], 'y^': prediction})
 
      def compare(s):
         return ['background-color: #90EE90']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
-     st.dataframe(compare_df.style.apply(compare, axis=1))
-     precision = compare_df.loc[(compare_df['y'] == compare_df['y^'])].shape[0]/ compare_df.shape[0]*100
+     st.dataframe(compare_train.style.apply(compare, axis=1))
+     precision = compare_train.loc[(compare_train['y'] == compare_train['y^'])].shape[0]/ compare_train.shape[0]*100
      st.write(f'Точность предсказания: {precision}%')
-     #st.write(compare_df)
-     #st.success(f'Your prediction is: {prediction}')
+
+     input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
+     if (input_file is not None) and input_file.name.endswith(".csv"):
+        test = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
+        test[xs] = ss.fit_transform(test[xs])
+        test['y^'] = logreg.predict(test[xs])
+
+        st.dataframe(test.style.apply(compare, axis=1))
+        precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
+        st.write(f'Точность предсказания: {precision}%')
+
+        
+
+
+
 
 
