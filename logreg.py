@@ -96,8 +96,8 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         #plt.axhline(0.5, color='r', label='0.5')
         #plt.axvline(test.loc[(test['y^'] == 0)].shape[0])
         plt.title('Точность предсказания логистической регрессии')
-        plt.xlabel('Значение искомого показателя')
-        plt.ylabel('Строки')
+        plt.xlabel('Строки')
+        plt.ylabel('Значение искомого показателя')
         st.pyplot(fig)
         error = test.loc[(test['y'] != test['y^'])].shape[0]#/ test.shape[0]*100
         st.write('Значений предсказано неверно', error)
