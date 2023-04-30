@@ -54,9 +54,13 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
      #st.write('You selected:', option)
      
      st.write('Веса модели:', logreg.w, 'Свободный член:', logreg.bias)   
-     prediction = logreg.predict(df[['x1', 'x2', 'x3']])
+     prediction = logreg.predict(df[xs])
+     lr = LogisticRegression()
+     lr.fit(df[xs], df[y].to_numpy())
+     prediction2 = lr.predict(df[xs])
+     
      st.write('Сверим предсказание модели с входными данными:')
-     compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction})
+     compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction, 'y_skl': prediction2})
      st.write(compare_df)
      #st.success(f'Your prediction is: {prediction}')
 
