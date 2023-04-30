@@ -61,7 +61,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
      compare_df = pd.DataFrame(data={'y': df[y], 'y^': prediction})
 
      def compare(s):
-        return ['background-color: celadon']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
+        return ['background-color: #90EE90']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
      st.dataframe(compare_df.style.apply(compare, axis=1))
      
