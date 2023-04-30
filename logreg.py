@@ -90,6 +90,8 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         sns.lineplot(data = test.sort_values('y_sigm').reset_index()['y_sigm'])
         plt.axhline(0.5, color='r', label='0.5')
         st.pyplot(fig)
+        error = test.loc[(test['y'] != test['y^'])].shape[0]#/ test.shape[0]*100
+        st.write('Значений предсказано неверно', error)
 
 
 
