@@ -72,7 +72,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         if (input_file2 is not None) and input_file2.name.endswith(".csv"):
             test = pd.read_csv(input_file2).drop('Unnamed: 0', axis=1)
             test_new = test        
-            test_new[xs] = ss.fit_transform(test[xs])
+            test_new[xs] = ss.fit_transform(test_new[xs])
             test['y^'] = logreg.predict(test[xs])
             st.write('''
             #### Итоговый результат
