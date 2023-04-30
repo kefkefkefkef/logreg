@@ -49,25 +49,27 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
    
     #if st.button("Поехали"):
     ss = StandardScaler()
-    train[xs] = ss.fit_transform(train[xs])
+    train_new = train
+    train_new[xs] = ss.fit_transform(train_new[xs])
     learning_rate = st.slider('Точность обучения', 0.0001, 0.01, 0.01)
     logreg = LogReg(learning_rate)
-    logreg.fit(train[xs], train[y].to_numpy())     
+    logreg.fit(train_new[xs], train_new[y].to_numpy())     
     #st.write('You selected:', option)
     
     st.write('Веса модели:', logreg.w, 'Свободный член:', f'{logreg.bias}')   
-    prediction = logreg.predict(train[xs])
+    train['y^'] = logreg.predict(train[xs])
     
     
+    
+    
+    precision = train.loc[(train['y'] == train['y^'])].shape[0]/ train.shape[0]*100
+    st.write(f'Точность предсказания: {precision}%')
     st.write('Сверим предсказание модели с входными данными:')
-    compare_train = pd.DataFrame(data={'y': train[y], 'y^': prediction})
-
     def compare(s):
         return ['background-color: #90EE90']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
-    st.dataframe(compare_train.style.apply(compare, axis=1))
-    precision = compare_train.loc[(compare_train['y'] == compare_train['y^'])].shape[0]/ compare_train.shape[0]*100
-    st.write(f'Точность предсказания: {precision}%')
+    st.dataframe(train.style.apply(compare, axis=1))
+   
 
     #input_file2 = st.file_uploader("Загрузите данные для предсказания",type=['csv'])
     if (input_file2 is not None) and input_file2.name.endswith(".csv"):
