@@ -37,17 +37,24 @@ class LogReg:
             return np.array(list(map(int,round(1/(1 + np.exp(-(self.bias + X@self.w)))))))
 
 
-logreg = LogReg(0.01)
 
-logreg.fit(train[['x1', 'x2', 'x3']], train['y'].to_numpy())
 
 #df = st.file_uploader('Загрузите свои данные:', 'csv')
-input_file = st.file_uploader("Upload a CSV File",type=['csv'])
+input_file = st.file_uploader("Загрузите свои данные для обучения модели",type=['csv'])
 if (input_file is not None) and input_file.name.endswith(".csv"):
     df = pd.read_csv(input_file).drop('Unnamed: 0', axis=1)
-    if st.button("Predict"): 
-     df[['x1', 'x2', 'x3']] = ss.fit_transform(df[['x1', 'x2', 'x3']])
-     prediction = logreg.predict(df[['x1', 'x2', 'x3']])
-     st.success(f'Your prediction is: {prediction}')
+   
+    y = st.selectbox('Выберите таргет:',(df))
+    xs = st.multiselect('Выберите показатели для вычисления весов:', (df))
+    st.write(xs)
+    # if st.button("Поехали"):
+    #  df[xs] = ss.fit_transform(df[xs])
+    #  logreg = LogReg(0.01)
+    #  logreg.fit(df[xs], train[y].to_numpy())     
+    #  #st.write('You selected:', option)
+     
+    #  st.write('Веса модели:', )   
+    #  prediction = logreg.predict(df[['x1', 'x2', 'x3']])
+    #  st.success(f'Your prediction is: {prediction}')
 
 
