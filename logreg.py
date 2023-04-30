@@ -64,7 +64,8 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         return ['background-color: #90EE90']*len(s) if s['y'] == s['y^'] else ['background-color: #FFCCCB']*len(s)
 
      st.dataframe(compare_df.style.apply(compare, axis=1))
-     
+     precision = compare_df.loc[(compare_df['y'] == compare_df['y^'])].shape[0]/ compare_df.shape[0]*100
+     st.write(f'Точность предсказания: {precision}%')
      #st.write(compare_df)
      #st.success(f'Your prediction is: {prediction}')
 
