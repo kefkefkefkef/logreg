@@ -34,7 +34,8 @@ class LogReg:
     def predict(self, X):
             
             #X['y_pred'] = round(1/(1 + np.exp(-(self.bias + X@self.w))))
-            return np.array(list(map(int,round(1/(1 + np.exp(-(self.bias + X@self.w)))))))
+            sigmoid = 1/(1 + np.exp(-(self.bias + X@self.w)))
+            return np.array(list(map(int,round(sigmoid))))
 
 
 
@@ -82,7 +83,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         ''')
         st.dataframe(test.style.apply(compare, axis=1))
         precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
-        st.write(f'Точность предсказания: {precision}%')
+        #st.write(f'Точность предсказания: {precision}%')
 
         
 
