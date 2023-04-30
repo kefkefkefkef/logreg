@@ -51,7 +51,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
     ss = StandardScaler()
     train_new = train
     train_new[xs] = ss.fit_transform(train_new[xs])
-    learning_rate = st.slider('Точность обучения', 0.0001, 0.01, 0.01)
+    learning_rate = st.number_input('Точность обучения', 0.0001, 0.01, 0.01)
     logreg = LogReg(learning_rate)
     logreg.fit(train_new[xs], train_new[y].to_numpy())     
     #st.write('You selected:', option)
@@ -78,7 +78,7 @@ if (input_file is not None) and input_file.name.endswith(".csv"):
         test_new[xs] = ss.fit_transform(test_new[xs])
         test['y^'] = logreg.predict(test_new[xs])
         st.write('''
-        #### Итоговый результат
+        #### Итоговый результат {precision}
         ''')
         st.dataframe(test.style.apply(compare, axis=1))
         precision_test = test.loc[(test['y'] == test['y^'])].shape[0]/ test.shape[0]*100
